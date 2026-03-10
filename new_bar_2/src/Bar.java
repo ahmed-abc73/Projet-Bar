@@ -9,18 +9,7 @@ public class Bar implements Runnable{
     private int nbClients;
 
     private int expBar;
-    /*
-    public Bar(int nbTables) {
-        this.nbTables = nbTables;
-        this.qualite = qualite;
-        this.barman = barman;
-        this.client = client;
-        this.capaTables = 4;
-        this.x = x;
-        this.y = y;
-    }
-
-     */
+    
 
     public Bar(int x, int y, int nbClients, int expBar){
         this.x = x;
@@ -29,18 +18,8 @@ public class Bar implements Runnable{
         this.expBar = expBar;
     }
 
-
     public void plusTables(){
         nbTables++;}
-
-/*
-    private void calculerCapaciteTotale() {
-        for (int i = 0; i < nbTables; i++) {
-            capaciteTotale += capacitesTables[i % capacitesTables.length];
-        }}
-
-
- */
 
     public void plusExp() {
         expBar ++;
@@ -52,15 +31,11 @@ public class Bar implements Runnable{
         if (expBar >= 5) {
             expBar = 0;}}
 
-
-
-
     public synchronized void run(){
         while (true){
-
+            try { Thread.sleep(500); } catch (InterruptedException e) { Thread.currentThread().interrupt(); break; }
         }
     }
-
 
     public int getExpBar() {
         return expBar;
@@ -77,7 +52,6 @@ public class Bar implements Runnable{
     public void setNbTables(int nbTables) {
         this.nbTables = nbTables;
     }
-
 
     public int getQualite() {
         return qualite;

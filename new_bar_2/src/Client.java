@@ -9,7 +9,8 @@ public class Client implements Runnable {
 
     private volatile boolean running = true;
 
-    private double tolerance, alcool, directionX = 0, directionY = 0;
+    private double tolerance, directionX = 0, directionY = 0;
+    private volatile double alcool;
     private int satisfaction, soif, initialX, initialY, x, y, speedX = 3, speedY = 3, posX, posY, indiceBarman;
     private String type = "occasionnel", genre;
     private final Random rand = new Random();
@@ -65,9 +66,6 @@ public class Client implements Runnable {
         this.fini = false;
     }
 
-
-
-
     public void retour(int idBarman){
         if (satisfaction >= 100) {
             barman.get(idBarman).plusExp(50);
@@ -76,9 +74,7 @@ public class Client implements Runnable {
         if (satisfaction >= 200) {
             bar.plusExp();}
 
-
-
-        if (barman.get(indiceBarman).getGrade() == "MAX"){
+        if (barman.get(indiceBarman).getGrade().equals("MAX")){
             setIndiceBarman(rand.nextInt(barman.size()));
         }
 
@@ -103,7 +99,6 @@ public class Client implements Runnable {
         if (this.alcool > 0)
             this.alcool -= 0.1;}
 
-
     public void embrouille(){
         if (this.alcool > 80){
             int chance = rand.nextInt((int) (20 - (100 - this.alcool)));
@@ -114,11 +109,6 @@ public class Client implements Runnable {
             }
         }
     }
-
-
-
-
-
 
     public boolean estDansChampDeVision(int cibleX, int cibleY) {
         double distance = Math.sqrt(Math.pow(cibleX - x, 2) + Math.pow(cibleY - y, 2));
@@ -159,14 +149,11 @@ public class Client implements Runnable {
             }
         }
 
-
-
         //System.out.println("position x et y"+this.x+" "+this.y+"position cible"+(this.targetY)+"table cible x y"+this.bar.getX()+" "+this.bar.getY());
 
         // CONTACT AVEC BARMAN
         if (attService && !servi) {
             if ((this.x == 400) && Math.abs(this.y-this.targetY) <= 3) {
-
 
                 this.servi = true;
                 this.attService = false;
@@ -175,7 +162,6 @@ public class Client implements Runnable {
 
             }
         }
-
 
         //CHERCHE TABLE
         if (!goTabl && servi && !attService) {
@@ -221,7 +207,6 @@ public class Client implements Runnable {
             y += directionY * speedY;
         }
 
-
         // Garder la logique existante pour les collisions et les bords de la fenêtre
         if (x <= 400) {
             x = 400;
@@ -237,11 +222,10 @@ public class Client implements Runnable {
                 directionX = -directionX;
                 directionY = -directionY;}}
 
-
         for (Client autre : autreClients) {
             if (detectCollision(autre.getX(), autre.getY(), 10)) {
-                x = x;
-                y = y;}
+                directionX = -directionX;
+                directionY = -directionY;}
 
         if (alcool >= 80){
             setCustomColor(bleu);
@@ -249,15 +233,11 @@ public class Client implements Runnable {
     }
     }
 
-
-
-
     // Méthode qui gère l'exécution du thread pour le mouvement et la gestion de la soif
     @Override
     public void run() {
         while (running) {
 
-            move(List.of(), List.of(), List.of());
             //soifMoins();
             alcoolMoins();
 
@@ -281,33 +261,7 @@ public class Client implements Runnable {
         // Logique de pathfinding ou d'autres mouvements spécifiques
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // -------------------------- Getters et Setters --------------------------
-
 
     public Color getCustomColor() {
         return customColor;
@@ -444,7 +398,6 @@ public class Client implements Runnable {
     public void setIndiceBarman(int indiceBarman) {
         this.indiceBarman = indiceBarman;
     }
-
 
     public void setRunning(boolean running) {
         this.running = running;

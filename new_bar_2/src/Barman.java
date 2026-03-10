@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class Barman implements Runnable {
 
-
     private volatile boolean running = true;
     private int motiv, besoinExp;
     private String grade;
@@ -30,10 +29,7 @@ public class Barman implements Runnable {
     private Color rouge = new Color(120, 40, 40);
     private Color customColor;
 
-
-
     private boolean disponible = false;
-
 
     public Barman(double adapt, String grade, int motiv, int initialX, int initialY) {
         this.exp = 1;
@@ -57,17 +53,7 @@ public class Barman implements Runnable {
 
     // Méthode pour définir `besoinExp` en fonction du grade actuel
 
-    /*
-    private void setBesoinExp() {
-        switch (grade) {
-            case "MAX" -> this.besoinExp = 99999;
-            case "Expert" -> this.besoinExp = 3000;
-            case "Intermediaire" -> this.besoinExp = 2000;
-            case "Debutant" -> this.besoinExp = 1000;
-        }
-    }
-    */
-
+    
 
     private void setBesoinExp() {
         switch (grade) {
@@ -78,36 +64,26 @@ public class Barman implements Runnable {
         }
     }
 
-
-    /*
-    private void setBesoinExp() {
-        switch (grade) {
-            case "MAX" -> this.besoinExp = 99999;
-            case "Expert" -> this.besoinExp = 3000;
-            case "Intermediaire" -> this.besoinExp = 2000;
-            case "Debutant" -> this.besoinExp = 1000;
-        }
-    }
-    */
+    
 
     // Méthode pour augmenter l'expérience et gérer les changements de grade
     public void plusExp(int xp) {
         this.exp += xp + (xp * adapt);
         this.customColor = blanc;
-        if (grade == "Debutant"){
+        if (grade.equals("Debutant")){
             if (exp >= besoinExp){
                 this.grade = "Intermediaire";
                 setBesoinExp();
                 this.exp = 1;
                 this.customColor = Color.white;}
         }
-        else if (grade == "Intermediaire") {
+        else if (grade.equals("Intermediaire")) {
             if (exp >= besoinExp){
                 setBesoinExp();
                 this.grade = "Expert";
                 this.exp = 1;
                 this.customColor = yellw;}
-        } else if (grade == "Expert"){
+        } else if (grade.equals("Expert")){
             if (exp >= besoinExp){
                 setBesoinExp();
                 this.grade = "MAX";
@@ -130,25 +106,10 @@ public class Barman implements Runnable {
             setTaille(taille - 2);
         }
     }
-/*
-    private void setRandomDirection() {
-        directionX += random.nextGaussian() * 0.3;
-        directionY += random.nextGaussian() * 0.3;
-        double magnitude = Math.sqrt(directionX * directionX + directionY * directionY);
-        directionX /= magnitude;
-        directionY /= magnitude;
-    }*/
 
     public synchronized void service(){
 
-        /*
-        int chance = random.nextInt(2); //1 chance sur 2 qu'il y ait erreur mais faudra changer
-        if (chance == 1) {
-            moinsExp(150);
-            moinsMotiv();
-        }
-        else {
-        */
+        
 
         for (Client client : this.client){
             if (client.getSoif() == 100 && client.isServi() && (!client.isAttService())) {
@@ -168,110 +129,30 @@ public class Barman implements Runnable {
         motiv -= 5;
     }
 
-    /*
-    public void quitte(List<Barman> listObjBarmans) {
-        if (this.motiv <= 0) {
-            running = false;
-            // L'enlever de la liste, le faire quitter le bar
-        }
-        synchronized (listObjBarmans) {
-            listObjBarmans.remove(this); // Retire le barman de la liste partagée
-        }
-    }
-    */
+    
 
     
 
     public synchronized void move(List<Client> clients, List<Barman> autresBarmans, List<Bar> tables) {
-        /*
-        //setCustomColor(noir);
-        // Nouvelle logique de pathfinding
-        if (path == null || pathIndex >= path.size()) {
-            int newTargetX = 300;
-            int newTargetY = 300;
-            path = Pathfinder.findPath(x, y, newTargetX, newTargetY, tables, clients, autresBarmans);
-            pathIndex = 0;
-        }
-
-        if (path != null && pathIndex < path.size()) {
-            int[] nextPoint = path.get(pathIndex);
-            int dx = nextPoint[0] - x;
-            int dy = nextPoint[1] - y;
-            double distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < speedX) {
-                x = nextPoint[0];
-                y = nextPoint[1];
-                pathIndex++;
-            } else {
-                double ratio = speedX / distance;
-                x += (int)(dx * ratio);
-                y += (int)(dy * ratio);}}
-
-        else {
-            // Ancienne logique de mouvement si le pathfinding échoue
-
-            setRandomDirection();
-            x += directionX * speedX;
-            y += directionY * speedY;
-        }
-
-        if (x <= 0 || x >= windowWidth) {
-            directionX = -directionX;}
-        if (y <= 0 || y >= windowHeight) {
-            directionY = -directionY;}
-
-        for (Barman autre : autresBarmans) {
-            if (this != autre && detectCollision(autre.getX(), autre.getY(), 25)) {
-                directionX = -directionX;
-                directionY = -directionY;
-                break;}}
-
-        for (Client client : clients) {
-            if (detectCollision(client.getX(), client.getY(), 150)) {
-                directionX = -directionX;
-                directionY = -directionY;
-                break;}}
-
-        for (Bar table : tables) {
-            if (detectCollision(table.getX(), table.getY(), 10)) {
-                directionX = -directionX;
-                directionY = -directionY;
-                break;}}
-        */
+        
         for (Client client : this.client) {
             if (client.getSoif() < 390) {
-                if (this.grade == "Debutant")
+                if (this.grade.equals("Debutant"))
                     setCustomColor(blanc);
-                else if (this.grade == "Intermediaire")
+                else if (this.grade.equals("Intermediaire"))
                     setCustomColor(yellw);
-                else if (this.grade == "Expert")
+                else if (this.grade.equals("Expert"))
                     setCustomColor(orange);
-                else if (this.grade == "MAX")
+                else if (this.grade.equals("MAX"))
                     setCustomColor(rouge);
-
 
             }
         }
     }
 
-/*
-    public void move2(List<Client> clients, List<Barman> autresBarmans, List<Bar> tables){
-
-
-    }
-        private boolean detectCollision(int autreX, int autreY, int minDistance) {
-        double distance = Math.sqrt(Math.pow(autreX - x, 2) + Math.pow(autreY - y, 2));
-        return distance < minDistance;
-    }
-
- */
-
     @Override
     public void run() {
         while (running) {
-            move(client, List.of(), List.of());
-
             System.out.println(exp + "/" + besoinExp + "  GRADE = " + grade + "    Adapt = " + adapt + "COULEUR " + customColor);
 
             try {
@@ -284,7 +165,6 @@ public class Barman implements Runnable {
 
     // Getters et Setters
 
-
     public Color getCustomColor() {
         return customColor;
     }
@@ -292,7 +172,6 @@ public class Barman implements Runnable {
     public void setCustomColor(Color customColor) {
         this.customColor = customColor;
     }
-
 
     public double getExp() { return exp; }
     public void setExp(double exp) { this.exp = exp; }

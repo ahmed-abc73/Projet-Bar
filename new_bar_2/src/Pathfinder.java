@@ -8,7 +8,7 @@ public class Pathfinder {
     private static final int GRID_SIZE = 3;
     private static final int GRID_WIDTH = 1400;
     private static final int GRID_HEIGHT = 1000;
-    private static final int MAX_ITERATIONS = 1000000000; // Limite le nombre d'itérations
+    private static final int MAX_ITERATIONS = 10000; // Limite le nombre d'itérations
 
     private static class Node implements Comparable<Node> {
         int x, y;

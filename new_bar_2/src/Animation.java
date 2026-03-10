@@ -34,12 +34,7 @@ public class Animation extends JPanel implements ActionListener {
             throw new RuntimeException(e);
         }
 
-        for (Client client : clients) {
-            new Thread(client).start();
-        }
-        for (Barman barman : barmans) {
-            new Thread(barman).start();
-        }
+        // Les threads sont démarrés dans TestThread.main() - ne pas les démarrer ici
 
 
     }
