@@ -1,0 +1,15 @@
+# Java - fichiers compilés
+*.class
+*.jar
+out/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# Archives
+*.zip
