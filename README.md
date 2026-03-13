@@ -46,5 +46,3 @@ java -cp out/ Main
 ## Auteurs
 
 - **BEKAKRIA Ahmed**
-- **MARCHAL Florient**
-- **VIGNOL SOARES PINTO Leandre**
