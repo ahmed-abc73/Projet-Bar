@@ -1,7 +1,7 @@
 ﻿# Projet-Bar
 
 Simulation d un bar avec des clients, des barmans et un pathfinding A*.
-Projet realise dans le cadre du cours de L3 MIASHS.
+Projet realise dans le cadre du cours de L2 MIASHS.
 
 ## Description
 
@@ -45,6 +45,6 @@ java -cp out/ Main
 
 ## Auteurs
 
-- **Ahmed Bekakria**
-- **Florient**
-- **Leandre**
+- **BEKAKRIA Ahmed**
+- **MARCHAL Florient**
+- **VIGNOL SOARES PINTO Leandre**
